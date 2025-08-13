@@ -1,5 +1,5 @@
 ARG BUILD_FROM
-FROM ${BUILD_FROM}
+FROM ghcr.io/home-assistant/aarch64-base:3.18
 
 # Environment variables
 ENV MQTT_HOST=127.0.0.1 \
@@ -26,14 +26,9 @@ WORKDIR /data
 # Copy scripts
 COPY entry.sh rtl_433_mqtt_hass.py /scripts/
 
-# Build rtl_433 from source and install dependencies
-RUN apk add --no-cache git build-base cmake libusb-dev librtlsdr-dev mosquitto-clients python3 py3-pip \
-    && git clone https://github.com/merbanan/rtl_433.git /tmp/rtl_433 \
-    && cd /tmp/rtl_433 && mkdir build && cd build \
-    && cmake .. && make && make install \
-    && rm -rf /tmp/rtl_433 \
-    && pip3 install paho-mqtt \
-    && chmod +x /scripts/entry.sh /scripts/rtl_433_mqtt_hass.py
+RUN apk add --no-cache rtl-sdr rtl_433 libusb mosquitto-clients python3 py3-paho-mqtt \
+    && chmod +x /scripts/entry.sh \
+    && chmod +x /scripts/rtl_433_mqtt_hass.py
 
 # Entrypoint
 ENTRYPOINT [ "/scripts/entry.sh" ]
