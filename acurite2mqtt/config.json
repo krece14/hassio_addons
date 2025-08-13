@@ -4,36 +4,33 @@
   "slug": "acurite2mqtt",
   "description": "Acurite Sensors to Home Assistant via MQTT with Autodiscovery",
   "url": "https://github.com/krece14/hassio_addons",
-
   "startup": "services",
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
   "usb": true,
-  "options":
-    {
+  "options": {
     "mqtt_host": "192.168.1.100",
     "mqtt_port": 1883,
     "mqtt_user": "user",
     "mqtt_password": "pass",
     "mqtt_topic": "rtl_433",
-    "mqtt_retain" : "true",
+    "mqtt_retain": true,
     "protocol": "-R 11 -R 40 -R 41 -R 55 -R 74",
-    "whitelist_enable": "false",
+    "whitelist_enable": false,
     "whitelist": "",
     "expire_after": 0,
     "units": "si",
     "discovery_prefix": "homeassistant",
     "discovery_interval": 600,
-    "auto_discovery": "true",
-    "debug": "false"
+    "auto_discovery": true,
+    "debug": false
   },
-  "schema":
-    {
+  "schema": {
     "mqtt_host": "str",
     "mqtt_port": "int",
     "mqtt_user": "str",
     "mqtt_password": "str",
     "mqtt_topic": "str",
-    "mqtt_retain" : "bool",
+    "mqtt_retain": "bool",
     "protocol": "str",
     "whitelist_enable": "bool",
     "whitelist": "str",
@@ -43,12 +40,11 @@
     "discovery_interval": "int",
     "auto_discovery": "bool",
     "debug": "bool"
-   },
+  },
   "build_from": {
-    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.20",
-    "armv7": "ghcr.io/home-assistant/armv7-base:3.20",
-    "amd64": "ghcr.io/home-assistant/amd64-base:3.20",
-    "i386": "ghcr.io/home-assistant/i386-base:3.20"
+    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.22",
+    "armv7": "ghcr.io/home-assistant/armv7-base:3.22",
+    "amd64": "ghcr.io/home-assistant/amd64-base:3.22",
+    "i386": "ghcr.io/home-assistant/i386-base:3.22"
   }
 }
-
