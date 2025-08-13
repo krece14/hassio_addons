@@ -1,5 +1,5 @@
 ARG BUILD_FROM
-FROM ghcr.io/home-assistant/aarch64-base:3.18
+FROM ghcr.io/home-assistant/aarch64-base:3.22
 
 # Define environment variables
 # Use this variable when creating a container to specify the MQTT broker host.
