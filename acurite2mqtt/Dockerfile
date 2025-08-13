@@ -1,5 +1,5 @@
-ARG BUILD_FROM
-FROM ghcr.io/home-assistant/aarch64-base:3.22
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:3.18
+FROM ${BUILD_FROM}
 
 # Define environment variables
 # Use this variable when creating a container to specify the MQTT broker host.
@@ -28,7 +28,8 @@ WORKDIR /data
 COPY entry.sh rtl_433_mqtt_hass.py /scripts/
 # install rtl_433, rtl-sdr, libusb, mosquitto-clients, python3 py3-paho-mqtt; and deps of rtl_433_mqtt_hass.py.
 # make entry.sh and rtl_433_mqtt_hass.py executable.
-RUN apk add --no-cache rtl-sdr rtl_433 libusb mosquitto-clients python3 py3-paho-mqtt && \
+RUN sed -i 's|dl-cdn.alpinelinux.org|dl-4.alpinelinux.org|g' /etc/apk/repositories && \
+    apk add --no-cache rtl-sdr rtl_433 libusb-dev mosquitto-clients python3 py3-paho-mqtt && \
     chmod +x /scripts/entry.sh && \
     chmod +x /scripts/rtl_433_mqtt_hass.py
 
