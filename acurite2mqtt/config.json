@@ -1,4 +1,8 @@
-{
+"build_from": {
+    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.18",
+    "armv7": "ghcr.io/home-assistant/armv7-base:3.18",
+    "amd64": "ghcr.io/home-assistant/amd64-base:3.18",
+    "i386": "ghcr.io/home-assistant/i386-base:3.18"
   "name": "Acurite to Home Assistant - Peto",
   "version": "0.3.26",
   "slug": "acurite2mqtt",
@@ -42,9 +46,9 @@
     "debug": "bool"
   },
   "build_from": {
-    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.22",
-    "armv7": "ghcr.io/home-assistant/armv7-base:3.22",
-    "amd64": "ghcr.io/home-assistant/amd64-base:3.22",
-    "i386": "ghcr.io/home-assistant/i386-base:3.22"
+    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.18",
+    "armv7": "ghcr.io/home-assistant/armv7-base:3.18",
+    "amd64": "ghcr.io/home-assistant/amd64-base:3.18",
+    "i386": "ghcr.io/home-assistant/i386-base:3.18"
   }
 }
