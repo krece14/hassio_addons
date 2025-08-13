@@ -1,8 +1,7 @@
 ARG BUILD_FROM
-FROM ghcr.io/home-assistant/aarch64-base:3.20
+FROM ${BUILD_FROM}
 
-# Define environment variables
-# Use this variable when creating a container to specify the MQTT broker host.
+# Environment variables
 ENV MQTT_HOST=127.0.0.1 \
     MQTT_PORT=1883 \
     MQTT_USERNAME="" \
@@ -19,19 +18,22 @@ ENV MQTT_HOST=127.0.0.1 \
     DEBUG=False \
     LANG=C.UTF-8
 
-LABEL Maintainer="Jeffrey Stone - Peto" \
-Description="This image is used to start the RTL433 to HASS script that will monitor for 433Mhz devices and send the data to an MQTT server"
+LABEL maintainer="Jeffrey Stone - Peto" \
+      description="RTL433 to Home Assistant via MQTT"
 
 WORKDIR /data
 
 # Copy scripts
 COPY entry.sh rtl_433_mqtt_hass.py /scripts/
-# install rtl_433, rtl-sdr, libusb, mosquitto-clients, python3 py3-paho-mqtt; and deps of rtl_433_mqtt_hass.py.
-# make entry.sh and rtl_433_mqtt_hass.py executable.
-RUN sed -i 's|dl-cdn.alpinelinux.org|dl-4.alpinelinux.org|g' /etc/apk/repositories && \
-    apk add --no-cache rtl-sdr rtl_433 libusb-dev mosquitto-clients python3 py3-paho-mqtt && \
-    chmod +x /scripts/entry.sh && \
-    chmod +x /scripts/rtl_433_mqtt_hass.py
 
-# Execute entry script
+# Build rtl_433 from source and install dependencies
+RUN apk add --no-cache git build-base cmake libusb-dev librtlsdr-dev mosquitto-clients python3 py3-pip \
+    && git clone https://github.com/merbanan/rtl_433.git /tmp/rtl_433 \
+    && cd /tmp/rtl_433 && mkdir build && cd build \
+    && cmake .. && make && make install \
+    && rm -rf /tmp/rtl_433 \
+    && pip3 install paho-mqtt \
+    && chmod +x /scripts/entry.sh /scripts/rtl_433_mqtt_hass.py
+
+# Entrypoint
 ENTRYPOINT [ "/scripts/entry.sh" ]
