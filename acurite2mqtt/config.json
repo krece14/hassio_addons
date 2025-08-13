@@ -1,5 +1,5 @@
 {
-  "name": "Acurite to Home Assistant",
+  "name": "Acurite to Home Assistant - Peto",
   "version": "0.3.26",
   "slug": "acurite2mqtt",
   "description": "Acurite Sensors to Home Assistant via MQTT with Autodiscovery",
